@@ -17,7 +17,11 @@ module.exports.getUsers = (req, res, next) => {
 };
 
 module.exports.getUser = (req, res, next) => {
-  console.log(req.user)
+
+  if (!req.user || !req.user.id) {
+    return res.status(401).send({ message: 'Unauthorized' });
+  }
+
   User.findById(req.user.id)
   .orFail(()=>{
     const error = new Error('There is no such user');

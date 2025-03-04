@@ -24,7 +24,7 @@ module.exports = (req, res, next) => {
     const err = new Error('Not Authorized');
     err.statusCode = 403;
 
-    next(err);
+    return next(err);
   }
 
   req.user = payload;
