@@ -1,22 +1,43 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
-function Register() {
+function Register({handleRegistration}) {
+  const [data, setData] = useState({
+    email: "",
+    password: "",
+  });
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+  
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    handleRegistration(data);
+  }; 
     return (
       <div>
-        <form>
+        <form onSubmit={handleSubmit}>
             <legend>Cadastre-se</legend>
 
             <input 
               type='email' 
               name='email'
               placeholder='E-mail' 
+              value={data.email}
+              onChange={handleChange}
             />
 
             <input 
               type='password' 
               name='password'
-              placeholder='Senha' 
+              placeholder='Senha'
+              value={data.password}
+              onChange={handleChange} 
             />
 
             <button type="submit">Cadastrar</button>

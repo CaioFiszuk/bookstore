@@ -1,10 +1,13 @@
 const express = require('express');
 const mongoose = require("mongoose");
+const cors = require("cors");
 const app = express();
 const booksRoutes = require('./routes/books');
 const usersRoutes = require('./routes/users');
 const auth = require('./middlewares/auth');
 
+app.use(cors());
+app.options('*', cors());
 app.use(express.json());
 
 mongoose.connect("mongodb://localhost:27017/bookstore")
