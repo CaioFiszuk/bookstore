@@ -22,14 +22,15 @@ function Login({ handleLogin }) {
   };
 
     return (
-      <div>
-        <form onSubmit={handleSubmit}>
-            <legend>Entrar</legend>
+      <div className="form__page">
+        <form onSubmit={handleSubmit} className="form">
+            <legend className="form__title">Entrar</legend>
 
             <input 
               type='email' 
               name='email'
-              placeholder='E-mail' 
+              placeholder='E-mail'
+              className="form__input" 
               value={data.email}
               onChange={handleChange}
             />
@@ -38,13 +39,14 @@ function Login({ handleLogin }) {
               type='password' 
               name='password'
               placeholder='Senha' 
+              className="form__input" 
               value={data.password}
               onChange={handleChange}
             />
 
-            <button type="submit">Entrar</button>
+            <button className="form__button" type="submit">Entrar</button>
 
-            <span>Ainda não é membro? Inscreva-se <Link to='/signup' className='link'>aqui!</Link></span>
+            <span className="form__info">Ainda não é membro? Inscreva-se <Link to='/signup' className='link'>aqui!</Link></span>
          </form>
       </div>
     )
