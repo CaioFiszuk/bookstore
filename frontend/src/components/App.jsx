@@ -22,7 +22,9 @@ function App() {
           onClose: () => navigate("/signin") 
         });
       })
-      .catch(console.error);
+      .catch((error) => {
+          toast.error(error.message.substr(6, 29));
+      });
   };
 
   const handleLogin = ({ email, password }) => {

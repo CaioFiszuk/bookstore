@@ -32,22 +32,26 @@ module.exports.getUser = (req, res, next) => {
   .catch(next);
 };
 
-module.exports.createUser = (req, res, next) => {
-  const { email, password } = req.body;
+module.exports.createUser = async (req, res, next) => {
+  try {
+    const { email, password } = req.body;
 
-  if (!email || !password) {
-    const error = new Error('Invalid Data');
-    error.statusCode = 400;
-    throw error;
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ message: "Este e-mail já foi cadastrado." });
+    }
+
+    if (!email || !password) {
+      return res.status(400).json({ message: "E-mail e senha são obrigatórios." });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const newUser = await User.create({ email, password: hashedPassword });
+
+    res.status(201).json({ message: "Usuário cadastrado com sucesso!", data: newUser });
+  } catch (error) {
+    next(error);
   }
-
-  bcrypt.hash(password, 10)
-  .then(hash => User.create({
-    email,
-    password: hash,
-  }))
-  .then(user => res.status(201).send({ data: user }))
-  .catch(next);
 };
 
 module.exports.login = async (req, res, next) => {
