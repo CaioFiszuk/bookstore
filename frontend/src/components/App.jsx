@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
+import { toast } from "react-toastify";
 import Main from './Main';
 import Login from './Login';
 import Register from './Register';
@@ -12,16 +13,16 @@ function App() {
 
   const navigate = useNavigate();
 
-  const handleRegistration = ({
-    email,
-    password,
-  }) => {
+  const handleRegistration = ({ email, password }) => {
     auth.register(email, password)
       .then(() => {
-        navigate("/signin");
-        
+        toast.success("Cadastro realizado com sucesso!", {
+          position: "top-right",
+          autoClose: 3000, 
+          onClose: () => navigate("/signin") 
+        });
       })
-      .catch(console.error);   
+      .catch(console.error);
   };
 
   const handleLogin = ({ email, password }) => {
