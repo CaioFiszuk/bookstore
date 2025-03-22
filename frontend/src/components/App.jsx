@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import { toast } from "react-toastify";
+import Header from './Header';
 import Main from './Main';
 import Login from './Login';
 import Register from './Register';
@@ -72,7 +73,8 @@ function App() {
           path='/'
           element={
             <ProtectedRoute isLoggedIn={isLoggedIn}>
-               <Main handleSignOut={signOut}/>
+              <Header handleSignOut={signOut}/>
+              <Main/>
             </ProtectedRoute>
           }
         />

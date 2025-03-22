@@ -1,9 +1,10 @@
-function Main({handleSignOut}) {
+import Header from './Header';
+
+function Main() {
 
   return (
     <div>
-        <h1>Welcome to the bookstore</h1>
-        <button onClick={handleSignOut}>Sign Out</button>
+        
 
         
     </div>

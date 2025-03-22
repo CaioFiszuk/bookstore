@@ -1,0 +1,26 @@
+.header{
+    background-color: navy;
+    color: white;
+    padding: 20px;
+}
+
+.header__navigation {
+    display: flex;
+    justify-content: space-between;
+}
+
+.header__items {
+    list-style: none;
+}
+
+.header__button {
+    background-color: transparent;
+    color: white;
+    font-size: 15px;
+    border: none;
+    cursor: pointer;
+}
+
+.header__button:hover {
+    color: rgb(210, 210, 210);
+}
