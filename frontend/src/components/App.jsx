@@ -37,9 +37,9 @@ function App() {
           navigate("/"); 
         }  
       })
-      .catch(
-       console.error()
-      );
+      .catch((error) => {
+        toast.error(error.message.substr(6, 31));
+    });
   }
 
   const signOut = () => {

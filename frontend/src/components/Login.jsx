@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Login({ handleLogin }) {
 
@@ -18,6 +20,12 @@ function Login({ handleLogin }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (!data.email || !data.password) {
+      toast.error("Preencha todos os campos!", { autoClose: 3000 });
+      return;
+    }
+
     handleLogin(data);
   };
 
@@ -48,6 +56,8 @@ function Login({ handleLogin }) {
 
             <span className="form__info">Ainda não é membro? Inscreva-se <Link to='/signup' className='link'>aqui!</Link></span>
          </form>
+
+         <ToastContainer />
       </div>
     )
   }

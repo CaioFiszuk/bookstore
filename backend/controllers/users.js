@@ -58,6 +58,11 @@ module.exports.login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
 
+    const nonExistingUser = await User.findOne({ email });
+    if (!nonExistingUser) {
+      return res.status(400).json({ message: "Este e-mail não está cadastrado." });
+    }
+
     const user = await User.findOne({ email }).select('+password');
 
     if (!user) {
