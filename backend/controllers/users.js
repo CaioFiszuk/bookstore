@@ -79,11 +79,25 @@ module.exports.login = async (req, res, next) => {
       throw error;
     }
 
-    const token = jwt.sign({ id: user._id }, "uY8n3+PqWz5jZxQfVbG2sL1mT4oN7dJcR9KX6A0MZFY=", { expiresIn: '7d' });
+    const token = jwt.sign({ id: user._id, isAdmin: user.isAdmin }, "uY8n3+PqWz5jZxQfVbG2sL1mT4oN7dJcR9KX6A0MZFY=", { expiresIn: '7d' });
 
-    return res.status(200).json({ token });
+    return res.status(200).json({ token, isAdmin: user.isAdmin });
 
   } catch (err) {
     next(err);
   }
 }
+
+module.exports.getUserInfo = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.userId).select("email isAdmin");
+
+    if (!user) {
+      return res.status(404).json({ message: "Usuário não encontrado" });
+    }
+
+    res.json(user);
+  } catch (error) {
+    res.status(500).json({ message: "Erro no servidor" });
+  }
+};

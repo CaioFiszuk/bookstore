@@ -13,12 +13,15 @@
     list-style: none;
 }
 
+.header__item {
+    cursor: pointer;
+}
+
 .header__button {
     background-color: transparent;
     color: white;
     font-size: 15px;
     border: none;
-    cursor: pointer;
 }
 
 .header__button:hover {

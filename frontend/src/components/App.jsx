@@ -2,15 +2,19 @@ import { useState, useEffect } from 'react';
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import { toast } from "react-toastify";
 import Header from './Header';
+import Dashboard from './Dashboard';
 import Main from './Main';
 import Login from './Login';
 import Register from './Register';
+import AdminRoute from "./AdminRoute";
 import ProtectedRoute from './ProtectedRoute';
 import * as auth from '../utils/auth';
 import * as token from '../utils/token';
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem("isLoggedIn") === "true");
+
+  const [userRole, setUserRole] = useState(localStorage.getItem("userRole"));
 
   const navigate = useNavigate();
 
@@ -49,22 +53,23 @@ function App() {
     setIsLoggedIn(false);
   }
 
-  useEffect(()=>{
-  
+  useEffect(() => {
     const jwt = token.getToken();
-      
     if (jwt) {
-
-      auth
-      .getUserInfo(jwt)
-      .then(() => {
-        setIsLoggedIn(true);
-        navigate("/");
-      })
-      .catch(console.error);
+      auth.getUserInfo(jwt)
+        .then((user) => {
+          setIsLoggedIn(true);
+          setUserRole(user.isAdmin ? "admin" : "user");
+          localStorage.setItem("userRole", user.isAdmin ? "admin" : "user");
+        })
+        .catch(() => {
+          setIsLoggedIn(false);
+          setUserRole(null);
+          token.removeToken();
+          localStorage.removeItem("userRole");
+        });
     }
-  
-  }, [navigate]); 
+  }, []);
 
   return (
     <div>
@@ -76,6 +81,16 @@ function App() {
               <Header handleSignOut={signOut}/>
               <Main/>
             </ProtectedRoute>
+          }
+        />
+
+       <Route
+         path='/dashboard'
+         element={
+           <AdminRoute isLoggedIn={isLoggedIn} userRole={userRole}>
+             <Header handleSignOut={signOut}/>
+             <Dashboard/>
+           </AdminRoute>
           }
         />
 
