@@ -37,7 +37,7 @@ export const authorize = (email, password) => {
 };
 
 export const getUserInfo = (token) => {
-  return axios.get(`${BASE_URL}/users/info`, {
+  return axios.get(`${BASE_URL}/users/me`, {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",

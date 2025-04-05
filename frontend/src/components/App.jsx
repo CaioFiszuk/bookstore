@@ -34,23 +34,35 @@ function App() {
 
   const handleLogin = ({ email, password }) => {
     auth
-    .authorize(email, password)
+      .authorize(email, password)
       .then((data) => {
         if (data.token) {
           token.setToken(data.token);
-          setIsLoggedIn(true); 
-          navigate("/"); 
-        }  
+          localStorage.setItem("isLoggedIn", "true");
+
+          auth.getUserInfo(data.token)
+            .then((user) => {
+              const role = user.data.isAdmin ? "admin" : "user";
+              setUserRole(role);
+              localStorage.setItem("userRole", role);
+              setIsLoggedIn(true);
+
+              navigate(role === "admin" ? "/dashboard" : "/");
+            });
+        }
       })
       .catch((error) => {
-        toast.error(error.message.substr(6, 31));
-    });
+        toast.error(error.message.slice(6));
+      });
   }
 
   const signOut = () => {
     token.removeToken();
-    navigate("/signin");
+    localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("userRole");
     setIsLoggedIn(false);
+    setUserRole(null);
+    navigate("/signin");
   }
 
   useEffect(() => {
@@ -58,15 +70,19 @@ function App() {
     if (jwt) {
       auth.getUserInfo(jwt)
         .then((user) => {
+          //console.log(user)
           setIsLoggedIn(true);
-          setUserRole(user.isAdmin ? "admin" : "user");
-          localStorage.setItem("userRole", user.isAdmin ? "admin" : "user");
+          const role = user.data.isAdmin ? "admin" : "user";
+          setUserRole(role);
+          localStorage.setItem("isLoggedIn", "true");
+          localStorage.setItem("userRole", role);
         })
         .catch(() => {
           setIsLoggedIn(false);
           setUserRole(null);
           token.removeToken();
           localStorage.removeItem("userRole");
+          localStorage.removeItem("isLoggedIn");
         });
     }
   }, []);
