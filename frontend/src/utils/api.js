@@ -24,6 +24,26 @@ class Api {
           });
     }
 
+    createBook(bookData) {
+      const { title, author, genre, publishedYear, description } = bookData;
+
+      if (!title || !author || !genre || !publishedYear || !description) {
+        return Promise.reject("Todos os campos são obrigatórios.");
+      }
+
+       return axios.post(`${this._baseURL}/books`, bookData, { headers: this._getAuthorizationHeaders() })
+       .then((res) => {
+        return res.data;
+      })
+          .catch((error) => {
+
+      const errorMessage = error.response 
+        ? `Error: ${error.response.status} - ${error.response.data.message || error.message}` 
+        : `Network error: ${error.message}`;
+      return Promise.reject(errorMessage);
+    });
+    }
+
 }
 
 const api = new Api({

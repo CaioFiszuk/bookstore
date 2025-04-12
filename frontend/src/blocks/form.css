@@ -1,0 +1,57 @@
+.form{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    height: 600px;
+}
+
+.form__title {
+   font-family: Verdana, Geneva, Tahoma, sans-serif;
+   font-size: 25px;
+   line-height: 30px;
+   margin: 20px 0;
+   padding: 0;
+   text-align: center;
+}
+
+.form__input {
+    border: none;
+    border-bottom: 1px solid black;
+    color: black;
+    background-color: transparent;
+    font-size: 15px;
+    line-height: 20px;
+}
+
+.form__input:focus {
+   border: none;
+}
+
+.form__button-box {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.form__button {
+    background-color: slateblue;
+    color: aliceblue;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    width: 30%;
+    align-self: center;
+}
+
+.form__button:hover {
+    background-color: rgb(80, 68, 157);
+}
+
+.form__button-success{
+    background-color: green;
+}
+
+.form__button-danger{
+    background-color: red;
+}
