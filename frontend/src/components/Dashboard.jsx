@@ -6,14 +6,25 @@ import CreateForm from './CreateForm';
 
 function Dashboard() {
   const [books, setBooks] = useState([]);
-  const [openCreateModal, setOpenCreateModal] = useState(false);
+  const [selectedBook, setSelectedBook] = useState(null);
+  const [createModal, setCreateModal] = useState(false);
+  const [deleteModal, setDeleteModal] = useState(false);
 
   const handleOpenCreateModal = () => {
-    setOpenCreateModal(true);
+    setCreateModal(true);
   }
 
   const closeCreateModal = () => {
-    setOpenCreateModal(false);
+    setCreateModal(false);
+  }
+
+  const openDeleteModal = (product) => {
+    setSelectedBook(product);
+    setDeleteModal(true);
+  }
+
+  const closeDeleteModal = () => {
+    setDeleteModal(false);
   }
 
   const handleCreateBook = async (data) => {
@@ -21,6 +32,20 @@ function Dashboard() {
       const newBook = await api.createBook(data);
       setBooks(prevBooks => [...prevBooks, newBook.data]);
       closeCreateModal();
+    }
+    catch(error) {
+      console.error(error);
+    }
+  }
+
+  const handleDeleteBook = async () => {
+    if(!selectedBook) return;
+
+    try {
+      api.deleteProduct(selectedBook._id);
+      setBooks(books.filter((v)=>v._id !== selectedBook._id));
+      closeDeleteModal();
+      setSelectedBook(null);
     }
     catch(error) {
       console.error(error);
@@ -60,7 +85,7 @@ function Dashboard() {
                    <td className='dashboard__table-cell'>{book.genre}</td>
                    <td className='dashboard__table-cell'>{book.publishedYear}</td>
                    <td className='dashboard__table-cell pointer'><FaPen /></td>
-                   <td className='dashboard__table-cell pointer'><FaTrashCan /></td>
+                   <td className='dashboard__table-cell pointer'><FaTrashCan onClick={()=>openDeleteModal(book)}/></td>
 
                 </tr>
               ))
@@ -68,9 +93,17 @@ function Dashboard() {
           </tbody>
          </table>
 
-         <Popup isOpen={openCreateModal} onClose={closeCreateModal}>
+         <Popup isOpen={createModal} onClose={closeCreateModal}>
            <CreateForm submission={handleCreateBook}/>
          </Popup>
+
+        <Popup isOpen={deleteModal} onClose={closeDeleteModal}>
+           <h3 className='form__title'>Tem certeza?</h3>
+            <div className='form__button-box'>
+              <button className='form__button form__button-success' onClick={handleDeleteBook}>Sim</button>
+              <button className='form__button form__button-danger' onClick={closeDeleteModal}>Não</button>
+            </div>
+        </Popup>
     </div>
   )
 }

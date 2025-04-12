@@ -44,6 +44,15 @@ class Api {
     });
     }
 
+    async deleteProduct (id) {
+      try {
+        const res = await axios.delete(`${this._baseURL}/products/${id}`);
+        return res.data;
+      } catch (error) {
+        throw new Error(`Error: ${error.response ? error.response.status : error.message}`);
+      }
+    }
+
 }
 
 const api = new Api({
