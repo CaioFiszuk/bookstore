@@ -1,0 +1,22 @@
+.dashboard__table {
+    border: 1px solid black;
+    width: 800px;
+    margin: 100px auto;
+}
+
+.dashboard__table-head {
+    font-size: 25px;
+    line-height: 20px;
+    margin-bottom: 30px;
+    padding: 10px;
+}
+
+.dashboard__table-cell {
+    border: 1px solid #ddd;
+    padding: 20px;
+    text-align: center;
+}
+
+.pointer {
+    cursor: pointer;
+}
