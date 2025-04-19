@@ -44,9 +44,9 @@ class Api {
     });
     }
 
-    async deleteProduct (id) {
+    async deleteBook (id) {
       try {
-        const res = await axios.delete(`${this._baseURL}/products/${id}`);
+        const res = await axios.delete(`${this._baseURL}/books/${id}`, { headers: this._getAuthorizationHeaders() });
         return res.data;
       } catch (error) {
         throw new Error(`Error: ${error.response ? error.response.status : error.message}`);

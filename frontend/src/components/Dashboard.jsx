@@ -42,7 +42,7 @@ function Dashboard() {
     if(!selectedBook) return;
 
     try {
-      api.deleteProduct(selectedBook._id);
+      await api.deleteBook(selectedBook._id);
       setBooks(books.filter((v)=>v._id !== selectedBook._id));
       closeDeleteModal();
       setSelectedBook(null);
