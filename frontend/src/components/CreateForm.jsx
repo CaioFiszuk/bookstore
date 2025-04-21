@@ -23,7 +23,7 @@ function CreateForm({submission}) {
     <input type="text" name="author" placeholder='Autor' className='form__input' required/>
     <input type="text" name="genre" placeholder='Gênero' className='form__input' required/>
     <input type="number" name="publishedYear" placeholder='Ano' className='form__input' required/>
-    <textarea name="description" placeholder="Descrição" className="form__textArea" required></textarea>
+    <textarea name="description" placeholder="Descrição" className="form__textarea" required></textarea>
 
     <button 
       type='submit' 

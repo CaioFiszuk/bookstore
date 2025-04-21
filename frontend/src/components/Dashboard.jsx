@@ -109,7 +109,7 @@ function Dashboard({books, setBooks, getAllBooks}) {
 
   return (
     <div>
-      <button onClick={handleOpenCreateModal}>Registrar Livro</button>
+      <button className='register-button' onClick={handleOpenCreateModal}>Registrar Livro</button>
 
          <table className='dashboard__table'>
           <thead>
@@ -153,7 +153,7 @@ function Dashboard({books, setBooks, getAllBooks}) {
              <input type="text" name="genre" placeholder='Gênero' className='form__input' value={updateFormData.genre} onChange={handleUpdateFormChange} required/>
              <input type="number" name="publishedYear" placeholder='Ano' className='form__input' value={updateFormData.publishedYear} onChange={handleUpdateFormChange} required/>
              <input type="number" name="avaliableCopies" placeholder='cópias' className='form__input' value={updateFormData.avaliableCopies} onChange={handleUpdateFormChange} required/>
-             <textarea name="description" placeholder="Descrição" className="form__textArea" value={updateFormData.description} onChange={handleUpdateFormChange} required></textarea>
+             <textarea name="description" placeholder="Descrição" className="form__textarea" value={updateFormData.description} onChange={handleUpdateFormChange} required></textarea>
   
              <button 
                type='submit' 

@@ -3,7 +3,9 @@
     flex-direction: column;
     gap: 30px;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+    width: 100%;
     height: 600px;
+    border: 1px solid black;
 }
 
 .form__title {
@@ -22,6 +24,12 @@
     background-color: transparent;
     font-size: 15px;
     line-height: 20px;
+}
+
+.form__textarea {
+    background-color: transparent;
+    width: 80%;
+    margin: auto;
 }
 
 .form__input:focus {
