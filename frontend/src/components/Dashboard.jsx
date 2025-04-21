@@ -14,6 +14,7 @@ function Dashboard({books, setBooks, getAllBooks}) {
     author: '',
     genre: '',
     publishedYear: '',
+    avaliableCopies: '',
     description: ''
   });
 
@@ -117,6 +118,7 @@ function Dashboard({books, setBooks, getAllBooks}) {
               <th className='dashboard__table-head'>Autor</th>
               <th className='dashboard__table-head'>Gênero</th>
               <th className='dashboard__table-head'>Ano</th>
+              <th className='dashboard__table-head'>Cópias</th>
               <th className='dashboard__table-head'>Editar</th>
               <th className='dashboard__table-head'>Apagar</th>
             </tr>
@@ -129,6 +131,7 @@ function Dashboard({books, setBooks, getAllBooks}) {
                    <td className='dashboard__table-cell'>{book.author}</td>
                    <td className='dashboard__table-cell'>{book.genre}</td>
                    <td className='dashboard__table-cell'>{book.publishedYear}</td>
+                   <td className='dashboard__table-cell'>{book.avaliableCopies}</td>
                    <td className='dashboard__table-cell pointer'><FaPen onClick={()=>openUpdateModal(book)}/></td>
                    <td className='dashboard__table-cell pointer'><FaTrashCan onClick={()=>openDeleteModal(book)}/></td>
 
@@ -149,6 +152,7 @@ function Dashboard({books, setBooks, getAllBooks}) {
              <input type="text" name="author" placeholder='Autor' className='form__input' value={updateFormData.author} onChange={handleUpdateFormChange} required/>
              <input type="text" name="genre" placeholder='Gênero' className='form__input' value={updateFormData.genre} onChange={handleUpdateFormChange} required/>
              <input type="number" name="publishedYear" placeholder='Ano' className='form__input' value={updateFormData.publishedYear} onChange={handleUpdateFormChange} required/>
+             <input type="number" name="avaliableCopies" placeholder='cópias' className='form__input' value={updateFormData.avaliableCopies} onChange={handleUpdateFormChange} required/>
              <textarea name="description" placeholder="Descrição" className="form__textArea" value={updateFormData.description} onChange={handleUpdateFormChange} required></textarea>
   
              <button 

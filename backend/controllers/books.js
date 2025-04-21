@@ -84,12 +84,13 @@ module.exports.updateBook = (req, res) => {
     author,
     genre,
     publishedYear,
+    avaliableCopies,
     description,
   };
 
-  if (avaliableCopies !== undefined) {
-    update.avaliableCopies = avaliableCopies;
-  }
+  /*if (avaliableCopies !== undefined) {
+  //update.avaliableCopies = avaliableCopies;
+  }*/
 
   Book.findByIdAndUpdate(
     req.params.bookId,

@@ -63,7 +63,7 @@ class Api {
       }
     }
 
-    updateBook(id, { title, author, genre, publishedYear, description }) {
+    updateBook(id, { title, author, genre, publishedYear,avaliableCopies, description }) {
       if (!id) {
         return Promise.reject("O ID é obrigatório.");
       }
@@ -74,6 +74,7 @@ class Api {
        if (author !== undefined) updatedFields.author = author;
        if (genre !== undefined) updatedFields.genre = genre;
        if (publishedYear !== undefined) updatedFields.publishedYear = publishedYear;
+       if (avaliableCopies !== undefined) updatedFields.avaliableCopies = avaliableCopies;
        if (description !== undefined) updatedFields.description = description;
     
       return axios.patch(`${this._baseURL}/books/${id}`, updatedFields, { headers: this._getAuthorizationHeaders() })
