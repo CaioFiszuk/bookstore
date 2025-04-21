@@ -10,8 +10,11 @@ import AdminRoute from "./AdminRoute";
 import ProtectedRoute from './ProtectedRoute';
 import * as auth from '../utils/auth';
 import * as token from '../utils/token';
+import { api } from '../utils/api';
 
 function App() {
+  const [books, setBooks] = useState([]);
+
   const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem("isLoggedIn") === "true");
 
   const [userRole, setUserRole] = useState(localStorage.getItem("userRole"));
@@ -56,6 +59,14 @@ function App() {
       });
   }
 
+  const getAllBooks = async () => {
+    await api.getBooks()
+    .then((data)=>{
+     setBooks(data.data);
+    })
+    .catch((error) => console.error("Erro ao buscar os livros:", error));
+  }
+
   const signOut = () => {
     token.removeToken();
     localStorage.removeItem("isLoggedIn");
@@ -70,7 +81,6 @@ function App() {
     if (jwt) {
       auth.getUserInfo(jwt)
         .then((user) => {
-          //console.log(user)
           setIsLoggedIn(true);
           const role = user.data.isAdmin ? "admin" : "user";
           setUserRole(role);
@@ -85,6 +95,8 @@ function App() {
           localStorage.removeItem("isLoggedIn");
         });
     }
+
+    getAllBooks();
   }, []);
 
   return (
@@ -95,7 +107,7 @@ function App() {
           element={
             <ProtectedRoute isLoggedIn={isLoggedIn}>
               <Header handleSignOut={signOut}/>
-              <Main/>
+              <Main books={books}/>
             </ProtectedRoute>
           }
         />
@@ -105,7 +117,7 @@ function App() {
          element={
            <AdminRoute isLoggedIn={isLoggedIn} userRole={userRole}>
              <Header handleSignOut={signOut}/>
-             <Dashboard/>
+             <Dashboard books={books} setBooks={setBooks} getAllBooks={getAllBooks}/>
            </AdminRoute>
           }
         />

@@ -4,8 +4,8 @@ import { FaTrashCan, FaPen } from "react-icons/fa6";
 import Popup from './Popup';
 import CreateForm from './CreateForm';
 
-function Dashboard() {
-  const [books, setBooks] = useState([]);
+function Dashboard({books, setBooks, getAllBooks}) {
+  //const [books, setBooks] = useState([]);
   const [selectedBook, setSelectedBook] = useState(null);
   const [createModal, setCreateModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
@@ -104,11 +104,7 @@ function Dashboard() {
   }
 
   useEffect(()=>{
-     api.getBooks()
-     .then((data)=>{
-      setBooks(data.data);
-     })
-     .catch((error) => console.error("Erro ao buscar os livros:", error));
+     getAllBooks();
   }, []);
 
   return (
