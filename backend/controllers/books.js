@@ -66,16 +66,28 @@ module.exports.deleteBook = (req, res) => {
 };
 
 module.exports.updateBook = (req, res) => {
+  const { title, author, genre, publishedYear, description, avaliableCopies } = req.body;
+
+  const update = {
+    title,
+    author,
+    genre,
+    publishedYear,
+    description,
+  };
+
+  if (avaliableCopies !== undefined) {
+    update.avaliableCopies = avaliableCopies;
+  }
 
   Book.findByIdAndUpdate(
-    req.params.id,
-    {content: req.body.content},
+    req.params.bookId,
+    update,
     {
       new: true,
       runValidators: true,
-      upsert: true
     }
   )
-  .then(book => res.send({ data: book }))
+  .then(book => {res.send({ data: book })})
   .catch(err => res.status(500).send('Server error'))
 }

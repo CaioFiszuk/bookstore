@@ -53,6 +53,29 @@ class Api {
       }
     }
 
+    updateBook(id, { title, author, genre, publishedYear, description }) {
+      if (!id) {
+        return Promise.reject("O ID é obrigatório.");
+      }
+
+      const updatedFields = {};
+
+       if (title !== undefined) updatedFields.title = title;
+       if (author !== undefined) updatedFields.author = author;
+       if (genre !== undefined) updatedFields.genre = genre;
+       if (publishedYear !== undefined) updatedFields.publishedYear = publishedYear;
+       if (description !== undefined) updatedFields.description = description;
+    
+      return axios.patch(`${this._baseURL}/books/${id}`, updatedFields, { headers: this._getAuthorizationHeaders() })
+        .then((res) => res.data)
+        .catch((error) => {
+          const errorMessage = error.response 
+            ? `Error: ${error.response.status} - ${error.response.data.message || error.message}` 
+            : `Network error: ${error.message}`;
+          return Promise.reject(errorMessage);
+        });
+    }
+
 }
 
 const api = new Api({
