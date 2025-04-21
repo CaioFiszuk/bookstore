@@ -24,6 +24,16 @@ class Api {
           });
     }
 
+    getBook(id) {
+      return axios.get(`${this._baseURL}/books/${id}`, { headers: this._getAuthorizationHeaders() })
+      .then((res) => {
+          return res.data;
+        })
+        .catch((error) => {
+          return Promise.reject(`Error: ${error.response ? error.response.status : error.message}`);
+        });
+  }
+
     createBook(bookData) {
       const { title, author, genre, publishedYear, description } = bookData;
 

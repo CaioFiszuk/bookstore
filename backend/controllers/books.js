@@ -23,6 +23,17 @@ module.exports.getBooks = (req, res) => {
   );
 }
 
+module.exports.getBook = (req, res) => {
+  const bookId = req.params.bookId;
+  console.log(req.params);
+
+  Book.findById(bookId)
+  .then((book) => res.send({ data: book }))
+  .catch((err) =>
+   res.status(500).send({ message: "Server Error" })
+ );
+}
+
 module.exports.getBookByAuthor = (req, res) => {
   const { author } = req.body;
    Book.find({author: author})

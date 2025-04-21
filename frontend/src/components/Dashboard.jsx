@@ -5,7 +5,6 @@ import Popup from './Popup';
 import CreateForm from './CreateForm';
 
 function Dashboard({books, setBooks, getAllBooks}) {
-  //const [books, setBooks] = useState([]);
   const [selectedBook, setSelectedBook] = useState(null);
   const [createModal, setCreateModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);

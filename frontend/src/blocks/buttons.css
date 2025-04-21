@@ -1,0 +1,25 @@
+.details-button {
+    border: none;
+    border-radius: 50px;
+    padding: 10px;
+    background-color: royalblue;
+    color: white;
+}
+
+.details-button:hover {
+    cursor: pointer;
+    background-color: rgb(47, 76, 161);
+}
+
+.cart-button {
+    border: none;
+    border-radius: 50px;
+    padding: 10px;
+    background-color: rgb(72, 143, 0);
+    color: white;
+}
+
+.cart-button:hover {
+    cursor: pointer;
+    background-color: rgb(43, 84, 3);
+}
