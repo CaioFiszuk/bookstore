@@ -19,6 +19,25 @@ const bookSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  isbn: { 
+    type: String, 
+    unique: true 
+  },
+  price: { 
+    type: Number, 
+    required: true 
+  },
+  sold: { 
+    type: Number, 
+    default: 0 
+  },
+  ratings: [{ 
+    user: mongoose.Schema.Types.ObjectId, 
+    rating: Number 
+  }],
+  coverImage: { 
+    type: String 
+  },
   description: {
     type: String,
     required: true,
